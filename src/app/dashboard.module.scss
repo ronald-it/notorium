@@ -1,0 +1,18 @@
+@use '../styles/variables' as *;
+
+.main {
+  position: relative;
+  border: 0.1rem solid;
+  border-color: black;
+  font-size: map-get($preset-1, "font-size");
+  line-height: map-get($preset-1, "line-height");
+  letter-spacing: map-get($preset-1, "letter-spacing");
+
+  .button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border: solid black;
+    border-radius: 100%;
+  }
+}

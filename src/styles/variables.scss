@@ -1,0 +1,133 @@
+// Variables
+
+// ___________________________________
+
+// Colors
+
+// Neutral
+$neutral-0: #FFFFFF;
+$neutral-50: #F5F7FA;
+$neutral-100: #F3F5F8;
+$neutral-200: #E0E4EA;
+$neutral-300: #CACFD8;
+$neutral-400: #99A0AE;
+$neutral-500: #717784;
+$neutral-600: #525866;
+$neutral-700: #2B303B;
+$neutral-800: #232530;
+$neutral-900: #191B25;
+$neutral-950: #0E121B;
+
+// Blue
+$blue-50: #EBF1FF;
+$blue-500: #335CFF;
+$blue-700: #2547D0;
+
+// Green
+$green-100: #D1FBE9;
+$green-500: #21C16B;
+
+// Red
+$red-100: #FFD5D8;
+$red-500: #FB3748;
+
+// ___________________________________
+
+// Typography
+
+// Line height
+$line-height: 120%;
+
+@use "sass:map";
+$preset-1: (
+  "font-size": 24px,
+  "line-height": $line-height,
+  "letter-spacing": -0.5px
+);
+$preset-2: (
+  "font-size": 20px,
+  "line-height": $line-height,
+  "letter-spacing": -0.5px
+);
+$preset-3: (
+  "font-size": 16px,
+  "line-height": $line-height,
+  "letter-spacing": -0.3px
+);
+$preset-4: (
+  "font-size": 14px,
+  "line-height": $line-height,
+  "letter-spacing": -0.2px
+);
+$preset-5: (
+  "font-size": 14px,
+  "line-height": $line-height,
+  "letter-spacing": -0.2px
+);
+$preset-6: (
+  "font-size": 12px,
+  "line-height": $line-height,
+  "letter-spacing": -0.2px
+);
+
+// ___________________________________
+
+// Spacing
+
+$spacing-0: 0;
+$spacing-025: 2px;
+$spacing-050: 4px;
+$spacing-075: 6px;
+$spacing-100: 8px;
+$spacing-150: 12px;
+$spacing-200: 16px;
+$spacing-250: 20px;
+$spacing-300: 24px;
+$spacing-400: 32px;
+$spacing-500: 40px;
+$spacing-600: 48px;
+$spacing-800: 64px;
+$spacing-1000: 80px;
+
+// ___________________________________
+
+// Radius
+
+$radius-0: 0;
+$radius-4: 4px;
+$radius-6: 6px;
+$radius-8: 8px;
+$radius-10: 10px;
+$radius-12: 12px;
+$radius-16: 16px;
+$radius-20: 20px;
+$radius-24: 24px;
+$radius-full: 999px;
+
+// ___________________________________
+
+// Shadows
+
+$shadow-color: rgba(240, 240, 240, 0.6);
+
+$shadow-small: 0px 4px 6px $shadow-color;
+$shadow-large: 0px 8px 12px $shadow-color;
+
+// ___________________________________
+
+// Grid System
+
+// Mobile
+$grid-mobile: 1fr / repeat(auto-fill, 24px);
+$gap-mobile: 16px;
+$padding-mobile: 16px;
+
+// Tablet
+$grid-tablet: 1fr / repeat(auto-fill, 67px);
+$gap-tablet: 24px;
+$padding-tablet: 32px;
+
+// Desktop
+$grid-tablet: 1fr / 272px repeat(auto-fill, 70px);
+$gap-tablet: 24px;
+$padding-tablet: 32px;
