@@ -1,0 +1,9 @@
+.button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__description {
+    display: none;
+  }
+}

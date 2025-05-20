@@ -1,34 +1,29 @@
-import Image from 'next/image';
 import styles from './Footer.module.scss';
-import homeIcon from '/public/images/icon-home.svg';
-import searchIcon from '/public/images/icon-search.svg';
-import archivedIcon from '/public/images/icon-archive.svg';
-import tagsIcon from '/public/images/icon-tag.svg';
-import settingsIcon from '/public/images/icon-settings.svg';
+import Button from '../Button/Button';
+import HomeIcon from '../icons/HomeIcon';
+import SearchIcon from '../icons/SearchIcon';
+import ArchivedIcon from '../icons/ArchivedIcon';
+import TagIcon from '../icons/TagIcon';
+import SettingsIcon from '../icons/SettingsIcon';
 
 export default function Footer() {
   return (
     <footer className={styles.footer}>
-      <div>
-        <Image src={homeIcon} alt='Home icon' />
-        <span>home</span>
-      </div>
-      <div>
-        <Image src={searchIcon} alt='Search icon' />
-        <span>search</span>
-      </div>
-      <div>
-        <Image src={archivedIcon} alt='Archived icon' />
-        <span>archived</span>
-      </div>
-      <div>
-        <Image src={tagsIcon} alt='Tags icon' />
-        <span>tags</span>
-      </div>
-      <div>
-        <Image src={settingsIcon} alt='Settings icon' />
-        <span>settings</span>
-      </div>
+      <Button description="home">
+        <HomeIcon color='#525866' />
+      </Button>
+      <Button description="search">
+        <SearchIcon color='#525866' />
+      </Button>
+      <Button description="archived">
+        <ArchivedIcon color='#525866' />
+      </Button>
+      <Button description="tags">
+        <TagIcon color='#525866' />
+      </Button>
+      <Button description="settings">
+        <SettingsIcon color='#525866' />
+      </Button>
     </footer>
   );
 }

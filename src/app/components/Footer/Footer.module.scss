@@ -1,16 +1,9 @@
+@use '../../../styles/variables.scss' as *;
+
 .footer {
-  border: solid 0.1rem;
-  border-color: blue;
   display: flex;
   justify-content: space-between;
-
-  div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    span {
-      display: none;
-    }
-  }
+  padding: $spacing-150 $spacing-200;
+  border-top: solid 1px $neutral-200;
+  box-shadow: $shadow-small;
 }
