@@ -68,7 +68,7 @@ body {
 }
 
 body {
-  min-height: 100vh;
+  height: 100vh;
   display: grid;
   grid: auto 1fr auto / 1fr;
 }

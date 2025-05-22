@@ -2,9 +2,9 @@
 @use 'sass:map';
 
 .main {
-  position: relative;
   padding: $spacing-0 $spacing-200;
   color: $neutral-950;
+  overflow-y: auto;
 
   .title {
     text-transform: capitalize;
@@ -15,7 +15,6 @@
   }
 
   .notes {
-
     .note {
       display: flex;
       flex-direction: column;
@@ -24,8 +23,8 @@
       border-bottom: solid 1px $neutral-200;
 
       &:last-child {
-      border-bottom: none;
-    }
+        border-bottom: none;
+      }
 
       &__title {
         font-family: 'Inter', sans-serif;
@@ -46,6 +45,7 @@
         line-height: map.get($preset-6, 'line-height');
         letter-spacing: map.get($preset-6, 'letter-spacing');
         padding: $spacing-025 $spacing-075;
+        border-radius: $radius-4;
       }
 
       &__date {
@@ -69,8 +69,8 @@
   }
 
   .button {
-    position: absolute;
-    bottom: 0;
+    position: fixed;
+    bottom: 10%;
     right: 0;
     border-radius: $radius-full;
     background-color: $blue-500;
