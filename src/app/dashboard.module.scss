@@ -4,6 +4,7 @@
 .main {
   position: relative;
   padding: $spacing-0 $spacing-200;
+  color: $neutral-950;
 
   .title {
     text-transform: capitalize;
@@ -11,6 +12,49 @@
     font-size: map.get($preset-1, 'font-size');
     line-height: map.get($preset-1, 'line-height');
     letter-spacing: map.get($preset-1, 'letter-spacing');
+  }
+
+  .notes {
+
+    .note {
+      display: flex;
+      flex-direction: column;
+      padding: $spacing-100;
+      gap: $spacing-150;
+      border-bottom: solid 1px $neutral-200;
+
+      &:last-child {
+      border-bottom: none;
+    }
+
+      &__title {
+        font-family: 'Inter', sans-serif;
+        font-size: map.get($preset-3, 'font-size');
+        line-height: map.get($preset-3, 'line-height');
+        letter-spacing: map.get($preset-3, 'letter-spacing');
+        font-weight: 600;
+      }
+
+      &__tags {
+        display: flex;
+        gap: $spacing-050;
+      }
+
+      &__tag {
+        background-color: $neutral-200;
+        font-size: map.get($preset-6, 'font-size');
+        line-height: map.get($preset-6, 'line-height');
+        letter-spacing: map.get($preset-6, 'letter-spacing');
+        padding: $spacing-025 $spacing-075;
+      }
+
+      &__date {
+        color: $neutral-700;
+        font-size: map.get($preset-6, 'font-size');
+        line-height: map.get($preset-6, 'line-height');
+        letter-spacing: map.get($preset-6, 'letter-spacing');
+      }
+    }
   }
 
   .notification {

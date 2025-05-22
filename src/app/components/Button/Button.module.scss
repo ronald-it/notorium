@@ -1,9 +1,18 @@
+@use '../../../styles/variables.scss' as *;
+
 .button {
   display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: center;
+  border-radius: $radius-4;
+  padding: $spacing-050 $spacing-0;
 
   &__description {
     display: none;
+  }
+
+  &:first-child {
+    background-color: $blue-50;
   }
 }

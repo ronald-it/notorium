@@ -10,7 +10,7 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       <Button description="home">
-        <HomeIcon color='#525866' />
+        <HomeIcon color='#335CFF' />
       </Button>
       <Button description="search">
         <SearchIcon color='#525866' />
