@@ -12,7 +12,7 @@
     display: none;
   }
 
-  &:first-child {
+  &--active {
     background-color: $blue-50;
   }
 }
