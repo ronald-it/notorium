@@ -1,43 +1,60 @@
+'use client';
 import styles from './dashboard.module.scss';
 import PlusIcon from './components/icons/PlusIcon';
-import { promises as fs } from 'fs';
+import fallbackData from './lib/data.json';
+import { useEffect, useState } from 'react';
 
-export default async function Home() {
-  const file = await fs.readFile(process.cwd() + '/src/app/data.json', 'utf8');
-  let data = JSON.parse(file);
-  if (data) {
-    data = data?.notes?.map((note: Note) => {
-      note.lastEdited = new Date(note.lastEdited);
+interface Notes {
+  notes: Note[];
+}
+
+interface Note {
+  content: string;
+  isArchived: boolean;
+  lastEdited: string;
+  lastEditedDate?: string;
+  tags: Array<string>;
+  title: string;
+}
+
+export default function Home() {
+  const [data, setData] = useState<Notes>({ notes: [] });
+
+  function formatDates(initialData: Notes) {
+    const dataWithFormattedDate = initialData.notes.map((note: Note) => {
+      const lastEditedDate = new Date(note.lastEdited);
       const dateTimeFormat = new Intl.DateTimeFormat('en-US', {
         year: 'numeric',
         month: 'short',
         day: 'numeric',
       });
-      const parts = dateTimeFormat.formatToParts(note.lastEdited);
+      const parts = dateTimeFormat.formatToParts(lastEditedDate);
       const day = parts.filter((part) => part.type === 'day')[0]['value'];
       const month = parts.filter((part) => part.type === 'month')[0]['value'];
       const year = parts.filter((part) => part.type === 'year')[0]['value'];
-      note.lastEditedDate = '';
       note.lastEditedDate = `${day.length < 2 ? '0' + day : day} ${month} ${year}`;
       return note;
     });
+
+    return dataWithFormattedDate;
   }
 
-  interface Note {
-    content: string;
-    isArchived: boolean;
-    lastEdited: Date;
-    lastEditedDate: string;
-    tags: Array<string>;
-    title: string;
-  }
+  useEffect(() => {
+    const storageData = localStorage.getItem('notes');
+    if (!storageData) {
+      localStorage.setItem('notes', JSON.stringify(fallbackData));
+      setData({ notes: formatDates(fallbackData) });
+    } else {
+      setData({ notes: formatDates(JSON.parse(storageData)) });
+    }
+  }, []);
 
   return (
     <main className={styles.main}>
       <h2 className={styles.title}>all notes</h2>
       {data ? (
         <div className={styles.notes}>
-          {data?.map((note: Note, index: number) => {
+          {data.notes.map((note: Note, index: number) => {
             return (
               <div key={index} className={styles.note}>
                 <span className={styles.note__title}>{note.title}</span>
