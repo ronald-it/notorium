@@ -12,8 +12,8 @@ export default function Footer() {
   const pathname = usePathname();
   return (
     <footer className={styles.footer}>
-      <Button description='home' url='/'>
-        <HomeIcon color={pathname === '/' ? '#335CFF' : '#525866'} />
+      <Button description='home' url='/notes'>
+        <HomeIcon color={pathname === '/notes' ? '#335CFF' : '#525866'} />
       </Button>
       <Button description='search' url='/search'>
         <SearchIcon color={pathname === '/search' ? '#335CFF' : '#525866'} />

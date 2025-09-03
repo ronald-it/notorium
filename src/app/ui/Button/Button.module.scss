@@ -1,4 +1,5 @@
 @use '../../../styles/variables.scss' as *;
+@use 'sass:map';
 
 .button {
   display: flex;
@@ -8,8 +9,27 @@
   border-radius: $radius-4;
   padding: $spacing-050 $spacing-0;
 
+  @include for-tablet {
+    flex: none;
+    width: $spacing-1000;
+  }
+
   &__description {
     display: none;
+
+    @include for-tablet {
+      display: block;
+      text-align: center;
+      font-size: map.get($preset-6, 'font-size');
+      line-height: map.get($preset-6, 'line-height');
+      letter-spacing: map.get($preset-6, 'letter-spacing');
+      color: $neutral-600;
+      text-transform: capitalize;
+
+      &--active {
+        color: $blue-500;
+      }
+    }
   }
 
   &--active {

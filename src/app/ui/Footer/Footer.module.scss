@@ -10,4 +10,8 @@
   padding: $spacing-150 $spacing-200;
   border-top: solid 1px $neutral-200;
   box-shadow: $shadow-small;
+
+  @include for-tablet {
+    padding: $spacing-250 $spacing-400;
+  }
 }

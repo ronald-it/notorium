@@ -16,7 +16,7 @@ export default function Button({ children, description, url }: ComponentProps) {
   return (
     <Link href={url} className={`${styles.button} ${pathname === url && styles['button--active']}`}>
       {children}
-      <span className={styles.button__description}>{description}</span>
+      <span className={`${styles.button__description} ${pathname === url && styles['button__description--active']}`}>{description}</span>
     </Link>
   );
 }

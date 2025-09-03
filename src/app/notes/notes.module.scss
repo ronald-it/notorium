@@ -5,6 +5,11 @@
   padding: $spacing-0 $spacing-200;
   color: $neutral-950;
   overflow-y: auto;
+  position: relative;
+
+  @include for-tablet {
+    padding: $spacing-0 $spacing-400;
+  }
 
   .title {
     text-transform: capitalize;
@@ -70,17 +75,22 @@
 
   .button {
     position: fixed;
-    bottom: 10%;
+    bottom: 57px;
     right: 0;
     border-radius: $radius-full;
     background-color: $blue-500;
-    height: 48px;
-    width: 48px;
+    height: $spacing-600;
+    width: $spacing-600;
     margin: $spacing-200;
     display: flex;
     justify-content: center;
     align-items: center;
     box-shadow: 0px 7px 11px rgba(202, 207, 216, 0.7);
+
+    @include for-tablet {
+      bottom: 87.4062px;
+      margin: $spacing-400;
+    }
 
     &__image {
       height: 32px;

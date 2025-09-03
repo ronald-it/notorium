@@ -131,3 +131,25 @@ $padding-tablet: 32px;
 $grid-tablet: 1fr / 272px repeat(auto-fill, 70px);
 $gap-tablet: 24px;
 $padding-tablet: 32px;
+
+// ___________________________________
+
+// Breakpoints
+$tablet: 640px;
+$desktop: 1440px;
+
+// Mixin for tablet-specific styles
+// Applies styles when the viewport width is 640px or wider
+@mixin for-tablet {
+    @media (min-width: #{$tablet}) {
+      @content;
+    }
+  }
+  
+// Mixin for desktop-specific styles
+// Applies styles when the viewport width is 1024px or wider
+  @mixin for-desktop {
+    @media (min-width: #{$desktop}) {
+      @content;
+    }
+  }
