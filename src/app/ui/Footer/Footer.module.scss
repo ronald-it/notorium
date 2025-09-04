@@ -14,4 +14,8 @@
   @include for-tablet {
     padding: $spacing-250 $spacing-400;
   }
+
+    @include for-desktop {
+      display: none;
+  }
 }

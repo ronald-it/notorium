@@ -1,0 +1,12 @@
+@use '../styles/variables.scss' as *;
+
+.layout {
+  @include for-desktop {
+    display: grid;
+    grid-template: $grid-desktop;
+
+    .main {
+      grid-area: auto / 2 / auto / end;
+    }
+  }
+}

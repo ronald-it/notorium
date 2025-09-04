@@ -92,6 +92,10 @@
       margin: $spacing-400;
     }
 
+    @include for-desktop {
+      display: none;
+    }
+
     &__image {
       height: 32px;
       width: 32px;

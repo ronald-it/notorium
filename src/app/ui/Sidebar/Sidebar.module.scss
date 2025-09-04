@@ -1,0 +1,12 @@
+@use '../../../styles/variables.scss' as *;
+
+.sidebar {
+  display: none;
+
+    @include for-desktop {
+      display: block;
+      grid-area: 1;
+      padding: $spacing-150 $spacing-200;
+      border-right: solid 1px $neutral-200;
+  }
+}

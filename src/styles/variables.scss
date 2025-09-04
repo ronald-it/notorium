@@ -128,14 +128,14 @@ $gap-tablet: 24px;
 $padding-tablet: 32px;
 
 // Desktop
-$grid-tablet: 1fr / 272px repeat(auto-fill, 70px);
-$gap-tablet: 24px;
-$padding-tablet: 32px;
+$grid-desktop: 1fr / 272px repeat(auto-fill, 70px);
+$gap-desktop: 24px;
+$padding-desktop: 32px;
 
 // ___________________________________
 
 // Breakpoints
-$tablet: 640px;
+$tablet: 768px;
 $desktop: 1440px;
 
 // Mixin for tablet-specific styles
