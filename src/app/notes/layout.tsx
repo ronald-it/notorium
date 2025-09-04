@@ -51,7 +51,16 @@ export default function Notes() {
 
   return (
     <main className={styles.main}>
-      <h2 className={styles.title}>all notes</h2>
+      <section className={styles.top__container}>
+        <h2 className={styles.title}>all notes</h2>
+        <input
+          className={styles.searchbar}
+          type='search'
+          id='search'
+          name='search'
+          placeholder='Search by title, content, or tags...'
+        />
+      </section>
       {data ? (
         <div className={styles.notes}>
           {data.notes.map((note: Note, index: number) => {

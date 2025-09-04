@@ -11,6 +11,10 @@
     padding: $spacing-0 $spacing-400;
   }
 
+  @include for-desktop {
+    padding: 0;
+  }
+
   .title {
     text-transform: capitalize;
     font-family: 'Inter', sans-serif;
@@ -19,7 +23,23 @@
     letter-spacing: map.get($preset-1, 'letter-spacing');
   }
 
+  .top__container {
+    @include for-desktop {
+      padding: 0 $spacing-400;
+      border-bottom: solid 1px $neutral-200;
+    }
+  }
+
+  .searchbar {
+    display: none;
+  }
+
   .notes {
+    @include for-desktop {
+      width: 290px;
+      padding: $spacing-250 $spacing-200 $spacing-250 $spacing-400;
+    }
+
     .note {
       display: flex;
       flex-direction: column;
