@@ -5,7 +5,7 @@ import feather from '/public/images/logo.svg';
 export default function Sidebar() {
   return (
     <div className={styles.sidebar}>
-      <Image src={feather} alt='Sidebar logo' className={styles.image} />
+      <Image src={feather} alt='Sidebar logo' />
     </div>
   );
 }

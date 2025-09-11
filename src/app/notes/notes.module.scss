@@ -1,7 +1,7 @@
 @use '../../styles/variables.scss' as *;
 @use 'sass:map';
 
-.main {
+.notes {
   padding: $spacing-0 $spacing-200;
   color: $neutral-950;
   overflow-y: auto;
@@ -15,74 +15,89 @@
     padding: 0;
   }
 
-  .title {
+  &__title-bar {
+    @include for-desktop {
+      padding: 0 $spacing-400;
+      border-bottom: solid 1px $neutral-200;
+      display: grid;
+      grid-template: 1fr / repeat(auto-fill, 70px);
+      gap: $gap-desktop;
+    }
+  }
+
+  &__title {
     text-transform: capitalize;
     font-family: 'Inter', sans-serif;
     font-size: map.get($preset-1, 'font-size');
     line-height: map.get($preset-1, 'line-height');
     letter-spacing: map.get($preset-1, 'letter-spacing');
+    grid-area: auto / span 2;
   }
 
-  .top__container {
+  &__toolbar {
+    display: none;
+
     @include for-desktop {
-      padding: 0 $spacing-400;
-      border-bottom: solid 1px $neutral-200;
+      display: flex;
+      align-items: center;
+      grid-column: -5 / -1;
+      border: solid 1px black;
     }
   }
 
-  .searchbar {
-    display: none;
+  &__searchbar {
+    width: 100%;
   }
 
-  .notes {
+  &__list {
     @include for-desktop {
       width: 290px;
       padding: $spacing-250 $spacing-200 $spacing-250 $spacing-400;
     }
+  }
 
-    .note {
-      display: flex;
-      flex-direction: column;
-      padding: $spacing-100;
-      gap: $spacing-150;
-      border-bottom: solid 1px $neutral-200;
+  &__note {
+    display: flex;
+    flex-direction: column;
+    padding: $spacing-100;
+    gap: $spacing-150;
+    border-bottom: solid 1px $neutral-200;
 
-      &:last-child {
-        border-bottom: none;
-      }
-
-      &__title {
-        font-family: 'Inter', sans-serif;
-        font-size: map.get($preset-3, 'font-size');
-        line-height: map.get($preset-3, 'line-height');
-        letter-spacing: map.get($preset-3, 'letter-spacing');
-        font-weight: 600;
-      }
-
-      &__tags {
-        display: flex;
-        gap: $spacing-050;
-      }
-
-      &__tag {
-        background-color: $neutral-200;
-        font-size: map.get($preset-6, 'font-size');
-        line-height: map.get($preset-6, 'line-height');
-        letter-spacing: map.get($preset-6, 'letter-spacing');
-        padding: $spacing-025 $spacing-075;
-        border-radius: $radius-4;
-      }
-
-      &__date {
-        color: $neutral-700;
-        font-size: map.get($preset-6, 'font-size');
-        line-height: map.get($preset-6, 'line-height');
-        letter-spacing: map.get($preset-6, 'letter-spacing');
-      }
+    &:last-child {
+      border-bottom: none;
     }
   }
 
-  .notification {
+  &__note-title {
+    font-family: 'Inter', sans-serif;
+    font-size: map.get($preset-3, 'font-size');
+    line-height: map.get($preset-3, 'line-height');
+    letter-spacing: map.get($preset-3, 'letter-spacing');
+    font-weight: 600;
+  }
+
+  &__note-tags {
+    display: flex;
+    gap: $spacing-050;
+  }
+
+  &__note-tag {
+    background-color: $neutral-200;
+    font-size: map.get($preset-6, 'font-size');
+    line-height: map.get($preset-6, 'line-height');
+    letter-spacing: map.get($preset-6, 'letter-spacing');
+    padding: $spacing-025 $spacing-075;
+    border-radius: $radius-4;
+  }
+
+  &__note-date {
+    color: $neutral-700;
+    font-size: map.get($preset-6, 'font-size');
+    line-height: map.get($preset-6, 'line-height');
+    letter-spacing: map.get($preset-6, 'letter-spacing');
+  }
+
+  &__notification {
     background-color: $neutral-100;
     border: solid 1px $neutral-200;
     font-family: 'Inter', sans-serif;
@@ -93,7 +108,7 @@
     border-radius: $radius-8;
   }
 
-  .button {
+  &__button {
     position: fixed;
     bottom: 57px;
     right: 0;
@@ -115,10 +130,10 @@
     @include for-desktop {
       display: none;
     }
+  }
 
-    &__image {
-      height: 32px;
-      width: 32px;
-    }
+  &__icon {
+    height: 32px;
+    width: 32px;
   }
 }

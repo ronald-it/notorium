@@ -1,7 +1,7 @@
 @use '../../../styles/variables.scss' as *;
 @use 'sass:map';
 
-.button {
+.nav-link {
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -12,6 +12,10 @@
   @include for-tablet {
     flex: none;
     width: $spacing-1000;
+  }
+
+  &--active {
+    background-color: $blue-50;
   }
 
   &__description {
@@ -30,9 +34,5 @@
         color: $blue-500;
       }
     }
-  }
-
-  &--active {
-    background-color: $blue-50;
   }
 }

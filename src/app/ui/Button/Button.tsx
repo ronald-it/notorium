@@ -6,17 +6,28 @@ import { usePathname } from 'next/navigation';
 
 type ComponentProps = {
   children: JSX.Element;
-  description: string;
+  description?: string;
   url: string;
 };
 
-export default function Button({ children, description, url }: ComponentProps) {
+export default function NavLink({ children, description, url }: ComponentProps) {
   const pathname = usePathname();
 
   return (
-    <Link href={url} className={`${styles.button} ${pathname === url && styles['button--active']}`}>
+    <Link
+      href={url}
+      className={`${styles['nav-link']} ${pathname === url && styles['nav-link--active']}`}
+    >
       {children}
-      <span className={`${styles.button__description} ${pathname === url && styles['button__description--active']}`}>{description}</span>
+      {description && (
+        <span
+          className={`${styles['nav-link__description']} ${
+            pathname === url && styles['nav-link__description--active']
+          }`}
+        >
+          {description}
+        </span>
+      )}
     </Link>
   );
 }
