@@ -3,9 +3,10 @@ import styles from './notes.module.scss';
 import PlusIcon from '../ui/icons/PlusIcon';
 import fallbackData from '../lib/data.json';
 import { useEffect, useState } from 'react';
-import { Input } from '@fluentui/react-input';
 import Button from '../ui/Button/Button';
 import SettingsIcon from '../ui/icons/SettingsIcon';
+import Input from '@mui/joy/Input';
+import SearchIcon from '../ui/icons/SearchIcon';
 
 interface Notes {
   notes: Note[];
@@ -53,16 +54,15 @@ export default function Notes() {
   }, []);
 
   return (
-    <section className={styles.notes}>
+    <div className={styles.notes}>
       <div className={`${styles['notes__title-bar']}`}>
         <h2 className={styles.notes__title}>all notes</h2>
-        <div className={`${styles.notes__toolbar}`}>
+        <div className={styles.notes__toolbar}>
           <Input
             className={styles.notes__searchbar}
-            type='search'
-            id='search'
-            name='search'
             placeholder='Search by title, content, or tags...'
+            startDecorator={<SearchIcon color='#717784' />}
+            size='sm'
           />
           <Button url='/settings'>
             <SettingsIcon color='#525866' />
@@ -99,6 +99,6 @@ export default function Notes() {
       <button className={styles.notes__button}>
         <PlusIcon className={styles.notes__icon} />
       </button>
-    </section>
+    </div>
   );
 }

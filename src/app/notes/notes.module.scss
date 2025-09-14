@@ -31,7 +31,7 @@
     font-size: map.get($preset-1, 'font-size');
     line-height: map.get($preset-1, 'line-height');
     letter-spacing: map.get($preset-1, 'letter-spacing');
-    grid-area: auto / span 2;
+    grid-column: auto / span 2;
   }
 
   &__toolbar {
@@ -40,12 +40,13 @@
     @include for-desktop {
       display: flex;
       align-items: center;
-      grid-column: -5 / -1;
-      border: solid 1px black;
+      gap: $spacing-200;
+      grid-column: 9 / span 4;
     }
   }
 
   &__searchbar {
+    height: 42px;
     width: 100%;
   }
 

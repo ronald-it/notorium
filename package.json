@@ -9,7 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@fluentui/react-input": "^9.7.4",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/joy": "^5.0.0-beta.52",
+    "@mui/material": "^7.3.2",
     "next": "15.3.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

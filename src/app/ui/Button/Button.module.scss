@@ -14,6 +14,13 @@
     width: $spacing-1000;
   }
 
+  @include for-desktop {
+    padding: 0;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+  }
+
   &--active {
     background-color: $blue-50;
   }
