@@ -69,34 +69,38 @@ export default function Notes() {
           </Button>
         </div>
       </div>
-      {data ? (
-        <div className={styles.notes__list}>
-          {data.notes.map((note: Note, index: number) => {
-            return (
-              <div key={index} className={styles.notes__note}>
-                <span className={`${styles['notes__note-title']}`}>{note.title}</span>
-                <div className={`${styles['notes__note-tags']}`}>
-                  {note.tags.map((tag, index) => {
-                    return (
-                      <span className={`${styles['notes__note-tag']}`} key={index}>
-                        {tag}
-                      </span>
-                    );
-                  })}
+      <div className={styles.notes__list}>
+        <button className={`${styles['notes__button-desktop']}`}>+ create new note</button>
+        {data ? (
+          <>
+            {data.notes.map((note: Note, index: number) => {
+              return (
+                <div key={index} className={styles.notes__note}>
+                  <span className={`${styles['notes__note-title']}`}>{note.title}</span>
+                  <div className={`${styles['notes__note-tags']}`}>
+                    {note.tags.map((tag, index) => {
+                      return (
+                        <span className={`${styles['notes__note-tag']}`} key={index}>
+                          {tag}
+                        </span>
+                      );
+                    })}
+                  </div>
+                  <span className={`${styles['notes__note-date']}`}>{note.lastEditedDate}</span>
                 </div>
-                <span className={`${styles['notes__note-date']}`}>{note.lastEditedDate}</span>
-              </div>
-            );
-          })}
-        </div>
-      ) : (
-        <div className={styles.notes__notification}>
-          <span>
-            You don&apos;t have any notes yet. Start a new note to capture your thoughts and ideas.
-          </span>
-        </div>
-      )}
-      <button className={styles.notes__button}>
+              );
+            })}
+          </>
+        ) : (
+          <div className={styles.notes__notification}>
+            <span>
+              You don&apos;t have any notes yet. Start a new note to capture your thoughts and
+              ideas.
+            </span>
+          </div>
+        )}
+      </div>
+      <button className={`${styles['notes__button-mobile-and-tablet']}`}>
         <PlusIcon className={styles.notes__icon} />
       </button>
     </div>

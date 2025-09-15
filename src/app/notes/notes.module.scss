@@ -13,15 +13,16 @@
 
   @include for-desktop {
     padding: 0;
+    height: 100%;
   }
 
   &__title-bar {
     @include for-desktop {
       padding: 0 $spacing-400;
       border-bottom: solid 1px $neutral-200;
-      display: grid;
-      grid-template: 1fr / repeat(auto-fill, 70px);
-      gap: $gap-desktop;
+      display: flex;
+      justify-content: space-between;
+      height: 70px;
     }
   }
 
@@ -41,19 +42,40 @@
       display: flex;
       align-items: center;
       gap: $spacing-200;
-      grid-column: 9 / span 4;
     }
   }
 
   &__searchbar {
     height: 42px;
-    width: 100%;
+    width: 300px;
   }
 
   &__list {
     @include for-desktop {
       width: 290px;
       padding: $spacing-250 $spacing-200 $spacing-250 $spacing-400;
+      border-right: solid 1px $neutral-200;
+      gap: $spacing-200;
+      display: flex;
+      flex-direction: column;
+      overflow-y: scroll;
+      height: calc(100% - 70px);
+    }
+  }
+
+  &__button-desktop {
+    display: none;
+
+    @include for-desktop {
+      display: block;
+      background-color: $blue-500;
+      color: $neutral-0;
+      text-transform: capitalize;
+      padding: $spacing-200 $spacing-0;
+      border-radius: $radius-8;
+      font-size: map.get($preset-4, 'font-size');
+      line-height: map.get($preset-4, 'line-height');
+      letter-spacing: map.get($preset-4, 'letter-spacing');
     }
   }
 
@@ -109,7 +131,7 @@
     border-radius: $radius-8;
   }
 
-  &__button {
+  &__button-mobile-and-tablet {
     position: fixed;
     bottom: 57px;
     right: 0;
