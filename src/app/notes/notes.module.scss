@@ -50,7 +50,139 @@
     width: 300px;
   }
 
+  &__section {
+    height: calc(100% - 70px);
+    display: flex;
+  }
+
+  &__edit {
+    display: none;
+
+    @include for-desktop {
+      flex: 1;
+      display: flex;
+      height: 100%;
+    }
+  }
+
+  &__form {
+    flex: 1;
+    display: flex;
+  }
+
+  &__edit-fields {
+    flex: 1;
+  }
+
+  &__create-fields {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: $spacing-200;
+    padding: $spacing-250 $spacing-300;
+  }
+
+  &__form-title {
+    width: 100%;
+    font-size: map.get($preset-1, 'font-size');
+    line-height: map.get($preset-1, 'line-height');
+    letter-spacing: map.get($preset-1, 'letter-spacing');
+    color: $neutral-950;
+    font-weight: 700;
+
+    &::placeholder {
+      color: $neutral-950;
+      font-weight: 700;
+    }
+  }
+
+  &__form-field-container {
+    display: flex;
+    font-size: map.get($preset-5, 'font-size');
+    line-height: map.get($preset-5, 'line-height');
+    letter-spacing: map.get($preset-5, 'letter-spacing');
+  }
+
+  &__form-label {
+    display: flex;
+    align-items: center;
+    width: 115px;
+    color: $neutral-700;
+    gap: $spacing-075;
+  }
+
+  &__form-input {
+    width: 100%;
+    color: $neutral-950;
+
+    &::placeholder {
+      color: $neutral-400;
+    }
+  }
+
+  &__divider {
+    border-bottom: solid 1px $neutral-200;
+  }
+
+  &__button {
+    padding: $spacing-150 $spacing-200;
+    border-radius: $radius-8;
+    text-transform: capitalize;
+    font-size: map.get($preset-4, 'font-size');
+    line-height: map.get($preset-4, 'line-height');
+    letter-spacing: map.get($preset-4, 'letter-spacing');
+
+    &--save {
+      background-color: $blue-500;
+      color: $neutral-0;
+    }
+
+    &--cancel {
+      background-color: $neutral-100;
+      color: $neutral-600;
+    }
+  }
+
+  &__form-description {
+    width: 100%;
+    height: 100%;
+    color: $neutral-800;
+    font-size: map.get($preset-5, 'font-size');
+    line-height: map.get($preset-5, 'line-height');
+    letter-spacing: map.get($preset-5, 'letter-spacing');
+
+    &::placeholder {
+      color: $neutral-700;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-150;
+    width: 258px;
+    border-left: solid 1px $neutral-200;
+    padding: $spacing-250 $spacing-200;
+  }
+
+  &__action {
+    color: $neutral-950;
+    text-transform: capitalize;
+    padding: $spacing-150 $spacing-200;
+    font-size: map.get($preset-4, 'font-size');
+    line-height: map.get($preset-4, 'line-height');
+    letter-spacing: map.get($preset-4, 'letter-spacing');
+    font-weight: 500;
+    border-radius: $radius-8;
+    border: solid 1px $neutral-300;
+    display: flex;
+    gap: $spacing-100;
+    align-items: center;
+  }
+
   &__list {
+    width: 100%;
+
     @include for-desktop {
       width: 290px;
       padding: $spacing-250 $spacing-200 $spacing-250 $spacing-400;
@@ -59,7 +191,6 @@
       display: flex;
       flex-direction: column;
       overflow-y: scroll;
-      height: calc(100% - 70px);
     }
   }
 
@@ -82,12 +213,20 @@
   &__note {
     display: flex;
     flex-direction: column;
+    align-items: start;
     padding: $spacing-100;
     gap: $spacing-150;
     border-bottom: solid 1px $neutral-200;
+    width: 100%;
 
     &:last-child {
       border-bottom: none;
+    }
+
+    &--active {
+      background-color: $neutral-100;
+      border: none;
+      border-radius: $radius-6;
     }
   }
 
@@ -97,6 +236,7 @@
     line-height: map.get($preset-3, 'line-height');
     letter-spacing: map.get($preset-3, 'letter-spacing');
     font-weight: 600;
+    text-align: start;
   }
 
   &__note-tags {
@@ -158,5 +298,10 @@
   &__icon {
     height: 32px;
     width: 32px;
+  }
+
+  &__buttons-container {
+    display: flex;
+    gap: $spacing-200;
   }
 }
