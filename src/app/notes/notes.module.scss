@@ -224,9 +224,11 @@
     }
 
     &--active {
-      background-color: $neutral-100;
-      border: none;
-      border-radius: $radius-6;
+      @include for-desktop {
+        background-color: $neutral-100;
+        border: none;
+        border-radius: $radius-6;
+      }
     }
   }
 

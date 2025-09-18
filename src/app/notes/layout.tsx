@@ -1,7 +1,6 @@
 'use client';
 import styles from './notes.module.scss';
 import PlusIcon from '../ui/icons/PlusIcon';
-import fallbackData from '../lib/data.json';
 import { useEffect, useState } from 'react';
 import Button from '../ui/Button/Button';
 import SettingsIcon from '../ui/icons/SettingsIcon';
@@ -11,19 +10,8 @@ import TagIcon from '../ui/icons/TagIcon';
 import ClockIcon from '../ui/icons/ClockIcon';
 import ArchivedIcon from '../ui/icons/ArchivedIcon';
 import DeleteIcon from '../ui/icons/DeleteIcon';
-
-interface Notes {
-  notes: Note[];
-}
-
-interface Note {
-  content: string;
-  isArchived: boolean;
-  lastEdited: string;
-  lastEditedDate?: string;
-  tags: Array<string>;
-  title: string;
-}
+import { fetchData } from '../lib/data';
+import type { Note, Notes } from '../lib/definitions';
 
 export default function Notes() {
   const [data, setData] = useState<Notes>({ notes: [] });
@@ -37,25 +25,6 @@ export default function Notes() {
     tags: [],
     title: '',
   });
-
-  function formatDates(initialData: Notes) {
-    const dataWithFormattedDate = initialData.notes.map((note: Note) => {
-      const lastEditedDate = new Date(note.lastEdited);
-      const dateTimeFormat = new Intl.DateTimeFormat('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-      });
-      const parts = dateTimeFormat.formatToParts(lastEditedDate);
-      const day = parts.filter((part) => part.type === 'day')[0]['value'];
-      const month = parts.filter((part) => part.type === 'month')[0]['value'];
-      const year = parts.filter((part) => part.type === 'year')[0]['value'];
-      note.lastEditedDate = `${day.length < 2 ? '0' + day : day} ${month} ${year}`;
-      return note;
-    });
-
-    return dataWithFormattedDate;
-  }
 
   function handleCreateNoteClick() {
     setSelectedNote(undefined);
@@ -76,13 +45,7 @@ export default function Notes() {
   }
 
   useEffect(() => {
-    const storageData = localStorage.getItem('notes');
-    if (!storageData) {
-      localStorage.setItem('notes', JSON.stringify(fallbackData));
-      setData({ notes: formatDates(fallbackData) });
-    } else {
-      setData({ notes: formatDates(JSON.parse(storageData)) });
-    }
+    setData(fetchData());
   }, []);
 
   return (

@@ -1,7 +1,7 @@
 type ComponentProps = {
   color: string;
-  width: string;
-  height: string;
+  width?: string;
+  height?: string;
 };
 
 export default function TagIcon({ color, width = '24', height = '24' }: ComponentProps) {

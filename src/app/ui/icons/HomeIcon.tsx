@@ -1,10 +1,18 @@
 type ComponentProps = {
   color: string;
+  width?: string;
+  height?: string;
 };
 
-export default function HomeIcon({ color }: ComponentProps) {
+export default function HomeIcon({ color, width = '24', height = '24' }: ComponentProps) {
   return (
-    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' viewBox='0 0 24 24'>
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width={width}
+      height={height}
+      fill='none'
+      viewBox='0 0 24 24'
+    >
       <path
         fill={color}
         fillRule='evenodd'

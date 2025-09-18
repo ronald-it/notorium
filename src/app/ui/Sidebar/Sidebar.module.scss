@@ -1,12 +1,55 @@
 @use '../../../styles/variables.scss' as *;
+@use 'sass:map';
 
 .sidebar {
   display: none;
 
-    @include for-desktop {
-      display: block;
-      grid-area: 1;
-      padding: $spacing-150 $spacing-200;
-      border-right: solid 1px $neutral-200;
+  @include for-desktop {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-200;
+    grid-area: 1;
+    padding: $spacing-150 $spacing-200;
+    border-right: solid 1px $neutral-200;
+  }
+
+  &__top-items {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-050;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: $spacing-100;
+    padding: 10px $spacing-150;
+    text-transform: capitalize;
+    font-size: map.get($preset-4, 'font-size');
+    line-height: map.get($preset-4, 'line-height');
+    letter-spacing: map.get($preset-4, 'letter-spacing');
+
+    &--active {
+      background-color: $neutral-100;
+      border-radius: $radius-8;
+    }
+  }
+
+  &__divider {
+    border-bottom: solid 1px $neutral-200;
+  }
+
+  &__tags {
+    padding: 0 $spacing-100;
+    color: $neutral-500;
+    text-transform: capitalize;
+    font-size: map.get($preset-4, 'font-size');
+    line-height: map.get($preset-4, 'line-height');
+    letter-spacing: map.get($preset-4, 'letter-spacing');
+  }
+
+  &__tags-container {
+    display: flex;
+    flex-direction: column;
   }
 }
