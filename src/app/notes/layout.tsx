@@ -12,6 +12,7 @@ import ArchivedIcon from '../ui/icons/ArchivedIcon';
 import DeleteIcon from '../ui/icons/DeleteIcon';
 import { fetchData } from '../lib/data';
 import type { Note, Notes } from '../lib/definitions';
+import ArrowLeftIcon from '../ui/icons/ArrowLeftIcon';
 
 export default function Notes() {
   const [data, setData] = useState<Notes>({ notes: [] });
@@ -25,6 +26,7 @@ export default function Notes() {
     tags: [],
     title: '',
   });
+  const [isDesktop, toggleIsDesktop] = useState(window.innerWidth >= 1440);
 
   function handleCreateNoteClick() {
     setSelectedNote(undefined);
@@ -48,67 +50,104 @@ export default function Notes() {
     setData(fetchData());
   }, []);
 
+  useEffect(() => {
+    function handleResize() {
+      toggleIsDesktop(window.innerWidth >= 1440);
+    }
+
+    window.addEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div className={styles.notes}>
-      <div className={`${styles['notes__title-bar']}`}>
-        <h2 className={styles.notes__title}>all notes</h2>
-        <div className={styles.notes__toolbar}>
-          <Input
-            className={styles.notes__searchbar}
-            placeholder='Search by title, content, or tags...'
-            startDecorator={<SearchIcon color='#717784' />}
-            size='sm'
-          />
-          <Button url='/settings'>
-            <SettingsIcon color='#525866' />
-          </Button>
+      {!(modifyMode && !isDesktop) && (
+        <div className={`${styles['notes__title-bar']}`}>
+          <h2 className={styles.notes__title}>all notes</h2>
+          <div className={styles.notes__toolbar}>
+            <Input
+              className={styles.notes__searchbar}
+              placeholder='Search by title, content, or tags...'
+              startDecorator={<SearchIcon color='#717784' />}
+              size='sm'
+            />
+            <Button url='/settings'>
+              <SettingsIcon color='#525866' />
+            </Button>
+          </div>
         </div>
-      </div>
+      )}
       <div className={styles.notes__section}>
-        <div className={styles.notes__list}>
-          <button className={`${styles['notes__button-desktop']}`} onClick={handleCreateNoteClick}>
-            + create new note
-          </button>
-          {data ? (
-            <>
-              {data.notes.map((note: Note, index: number) => {
-                return (
-                  <button
-                    key={index}
-                    className={`${styles.notes__note} ${
-                      selectedNote === note && styles['notes__note--active']
-                    }`}
-                    onClick={() => handleEditNoteClick(note)}
-                  >
-                    <span className={`${styles['notes__note-title']}`}>{note.title}</span>
-                    <div className={`${styles['notes__note-tags']}`}>
-                      {note.tags.map((tag, index) => {
-                        return (
-                          <span className={`${styles['notes__note-tag']}`} key={index}>
-                            {tag}
-                          </span>
-                        );
-                      })}
-                    </div>
-                    <span className={`${styles['notes__note-date']}`}>{note.lastEditedDate}</span>
-                  </button>
-                );
-              })}
-            </>
-          ) : (
-            <div className={styles.notes__notification}>
-              <span>
-                You don&apos;t have any notes yet. Start a new note to capture your thoughts and
-                ideas.
-              </span>
-            </div>
-          )}
-        </div>
-        <div className={styles.notes__edit}>
+        {!(modifyMode && !isDesktop) && (
+          <div className={styles.notes__list}>
+            <button
+              className={`${styles['notes__button-desktop']}`}
+              onClick={handleCreateNoteClick}
+            >
+              + create new note
+            </button>
+            {data ? (
+              <>
+                {data.notes.map((note: Note, index: number) => {
+                  return (
+                    <button
+                      key={index}
+                      className={`${styles.notes__note} ${
+                        selectedNote === note && styles['notes__note--active']
+                      }`}
+                      onClick={() => handleEditNoteClick(note)}
+                    >
+                      <span className={`${styles['notes__note-title']}`}>{note.title}</span>
+                      <div className={`${styles['notes__note-tags']}`}>
+                        {note.tags.map((tag, index) => {
+                          return (
+                            <span className={`${styles['notes__note-tag']}`} key={index}>
+                              {tag}
+                            </span>
+                          );
+                        })}
+                      </div>
+                      <span className={`${styles['notes__note-date']}`}>{note.lastEditedDate}</span>
+                    </button>
+                  );
+                })}
+              </>
+            ) : (
+              <div className={styles.notes__notification}>
+                <span>
+                  You don&apos;t have any notes yet. Start a new note to capture your thoughts and
+                  ideas.
+                </span>
+              </div>
+            )}
+          </div>
+        )}
+        <div className={`${styles.notes__edit} ${modifyMode && styles['notes__edit--active']}`}>
           <form className={styles.notes__form} onSubmit={handleSubmit}>
             {modifyMode && (
               <>
                 <div className={`${styles['notes__create-fields']}`}>
+                  {!isDesktop && (
+                    <div className={styles['notes__actions-bar']}>
+                      <button
+                        className={`${styles['notes__mobile-form-button']} ${styles['notes__mobile-form-button--gray']}`}
+                      >
+                        <ArrowLeftIcon color='#525866' width='18' height='18' />
+                        go back
+                      </button>
+                      <div className={styles['notes__actions-container']}>
+                        <button
+                          className={`${styles['notes__mobile-form-button']} ${styles['notes__mobile-form-button--gray']}`}
+                        >
+                          cancel
+                        </button>
+                        <button
+                          className={`${styles['notes__mobile-form-button']} ${styles['notes__mobile-form-button--blue']}`}
+                        >
+                          save note
+                        </button>
+                      </div>
+                    </div>
+                  )}
                   <input
                     type='text'
                     value={selectedNote ? selectedNote.title : newNote.title}
@@ -116,28 +155,29 @@ export default function Notes() {
                     className={styles['notes__form-title']}
                   />
                   <div className={styles['notes__form-field-container']}>
-                    <label className={styles['notes__form-label']}>
-                      <TagIcon color='#2B303B' width='16' height='16' />
-                      Tags
-                    </label>
-                    <input
-                      type='text'
-                      placeholder='Add tags separated by commas (e.g. Work, Planning)'
-                      value={selectedNote ? selectedNote.tags.join(', ') : newNote.tags}
-                      className={styles['notes__form-input']}
-                    />
-                  </div>
-                  <div className={styles['notes__form-field-container']}>
-                    <label className={styles['notes__form-label']}>
-                      <ClockIcon color='#2B303B' width='16' height='16' />
-                      Last edited
-                    </label>
-                    <input
-                      type='text'
-                      value={selectedNote ? selectedNote.lastEditedDate : newNote.lastEditedDate}
-                      placeholder='Not yet saved'
-                      className={styles['notes__form-input']}
-                    />
+                    <div className={styles['notes__form-field-group']}>
+                      <label className={styles['notes__form-label']}>
+                        <TagIcon color='#2B303B' width='16' height='16' />
+                        Tags
+                      </label>
+                      <textarea
+                        placeholder='Add tags separated by commas (e.g. Work, Planning)'
+                        value={selectedNote ? selectedNote.tags.join(', ') : newNote.tags}
+                        className={styles['notes__form-input']}
+                      />
+                    </div>
+                    <div className={styles['notes__form-field-group']}>
+                      <label className={styles['notes__form-label']}>
+                        <ClockIcon color='#2B303B' width='16' height='16' />
+                        Last edited
+                      </label>
+                      <input
+                        type='text'
+                        value={selectedNote ? selectedNote.lastEditedDate : newNote.lastEditedDate}
+                        placeholder='Not yet saved'
+                        className={styles['notes__form-input']}
+                      />
+                    </div>
                   </div>
                   <span className={styles.notes__divider}></span>
                   <textarea
@@ -145,7 +185,7 @@ export default function Notes() {
                     placeholder='Start typing your note here...'
                     className={styles['notes__form-description']}
                   />
-                  <span className={styles.notes__divider}></span>
+                  {isDesktop && <span className={styles.notes__divider}></span>}
                   <div className={styles['notes__buttons-container']}>
                     <button
                       className={`${styles['notes__button']} ${styles['notes__button--save']}`}
@@ -178,9 +218,14 @@ export default function Notes() {
           </form>
         </div>
       </div>
-      <button className={`${styles['notes__button-mobile-and-tablet']}`}>
-        <PlusIcon className={styles.notes__icon} />
-      </button>
+      {!modifyMode && (
+        <button
+          className={`${styles['notes__button-mobile-and-tablet']}`}
+          onClick={handleCreateNoteClick}
+        >
+          <PlusIcon className={styles.notes__icon} />
+        </button>
+      )}
     </div>
   );
 }
