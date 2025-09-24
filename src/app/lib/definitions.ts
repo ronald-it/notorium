@@ -8,5 +8,6 @@ export type Note = {
   lastEdited: string;
   lastEditedDate?: string;
   tags: Array<string>;
+  tagString?: string;
   title: string;
 };

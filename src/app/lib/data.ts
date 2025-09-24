@@ -1,6 +1,6 @@
 import fallbackData from '../lib/data.json';
 import { Note, Notes } from '../lib/definitions';
-import { formatDates } from './utils';
+import { formatDates, formatTagStrings } from './utils';
 
 export function fetchData() {
   let data: Notes;
@@ -8,9 +8,9 @@ export function fetchData() {
   const storageData = localStorage.getItem('notes');
   if (!storageData) {
     localStorage.setItem('notes', JSON.stringify(fallbackData));
-    data = { notes: formatDates(fallbackData) };
+    data = formatTagStrings(formatDates(fallbackData));
   } else {
-    data = { notes: formatDates(JSON.parse(storageData)) };
+    data = formatTagStrings(formatDates(JSON.parse(storageData)));
   }
 
   return data;

@@ -1,7 +1,7 @@
 'use client';
 import styles from './notes.module.scss';
 import PlusIcon from '../ui/icons/PlusIcon';
-import { useEffect, useState } from 'react';
+import { BaseSyntheticEvent, useEffect, useState } from 'react';
 import Button from '../ui/Button/Button';
 import SettingsIcon from '../ui/icons/SettingsIcon';
 import Input from '@mui/joy/Input';
@@ -13,6 +13,7 @@ import DeleteIcon from '../ui/icons/DeleteIcon';
 import { fetchData } from '../lib/data';
 import type { Note, Notes } from '../lib/definitions';
 import ArrowLeftIcon from '../ui/icons/ArrowLeftIcon';
+import { saveNote } from '../lib/actions';
 
 export default function Notes() {
   const [data, setData] = useState<Notes>({ notes: [] });
@@ -24,9 +25,10 @@ export default function Notes() {
     lastEdited: '',
     lastEditedDate: '',
     tags: [],
+    tagString: '',
     title: '',
   });
-  const [isDesktop, toggleIsDesktop] = useState(window.innerWidth >= 1440);
+  const [isDesktop, toggleIsDesktop] = useState(false);
 
   function handleCreateNoteClick() {
     setSelectedNote(undefined);
@@ -43,11 +45,20 @@ export default function Notes() {
   }
 
   function handleSubmit() {
-    setNewNote();
+    saveNote(newNote);
+  }
+
+  function handleChange(e: BaseSyntheticEvent) {
+    const changedFieldName = e.target.name;
+    setNewNote({ ...newNote, [changedFieldName]: e.target.value });
   }
 
   useEffect(() => {
     setData(fetchData());
+  }, []);
+
+  useEffect(() => {
+    toggleIsDesktop(window.innerWidth >= 1440);
   }, []);
 
   useEffect(() => {
@@ -150,7 +161,9 @@ export default function Notes() {
                   )}
                   <input
                     type='text'
+                    name='title'
                     value={selectedNote ? selectedNote.title : newNote.title}
+                    onChange={handleChange}
                     placeholder='Enter a title...'
                     className={styles['notes__form-title']}
                   />
@@ -161,8 +174,10 @@ export default function Notes() {
                         Tags
                       </label>
                       <textarea
+                        name='tagString'
                         placeholder='Add tags separated by commas (e.g. Work, Planning)'
-                        value={selectedNote ? selectedNote.tags.join(', ') : newNote.tags}
+                        value={selectedNote ? selectedNote.tagString : newNote.tagString}
+                        onChange={handleChange}
                         className={styles['notes__form-input']}
                       />
                     </div>
@@ -173,7 +188,9 @@ export default function Notes() {
                       </label>
                       <input
                         type='text'
+                        name='lastEdited'
                         value={selectedNote ? selectedNote.lastEditedDate : newNote.lastEditedDate}
+                        onChange={handleChange}
                         placeholder='Not yet saved'
                         className={styles['notes__form-input']}
                       />
@@ -181,7 +198,9 @@ export default function Notes() {
                   </div>
                   <span className={styles.notes__divider}></span>
                   <textarea
+                    name='content'
                     value={selectedNote ? selectedNote.content : newNote.content}
+                    onChange={handleChange}
                     placeholder='Start typing your note here...'
                     className={styles['notes__form-description']}
                   />
@@ -189,6 +208,7 @@ export default function Notes() {
                   <div className={styles['notes__buttons-container']}>
                     <button
                       className={`${styles['notes__button']} ${styles['notes__button--save']}`}
+                      type='submit'
                     >
                       save note
                     </button>
