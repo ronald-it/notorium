@@ -3,11 +3,11 @@ export type Notes = {
 };
 
 export type Note = {
-  content: string;
-  isArchived: boolean;
-  lastEdited: string;
-  lastEditedDate?: string;
-  tags: Array<string>;
-  tagString?: string;
   title: string;
+  tags: Array<string>;
+  content: string;
+  lastEdited: string;
+  isArchived: boolean;
+  lastEditedDate?: string;
+  tagString?: string;
 };

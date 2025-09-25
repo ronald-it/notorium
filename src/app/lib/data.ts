@@ -13,6 +13,8 @@ export function fetchData() {
     data = formatTagStrings(formatDates(JSON.parse(storageData)));
   }
 
+  data.notes.sort((a, b) => -a.lastEdited.localeCompare(b.lastEdited));
+
   return data;
 }
 

@@ -13,12 +13,13 @@ import DeleteIcon from '../ui/icons/DeleteIcon';
 import { fetchData } from '../lib/data';
 import type { Note, Notes } from '../lib/definitions';
 import ArrowLeftIcon from '../ui/icons/ArrowLeftIcon';
-import { saveNote } from '../lib/actions';
+import { createNote, deleteNote, editNote } from '../lib/actions';
 
 export default function Notes() {
   const [data, setData] = useState<Notes>({ notes: [] });
   const [modifyMode, toggleModifyMode] = useState(false);
   const [selectedNote, setSelectedNote] = useState<Note | undefined>();
+  const [selectedNoteOriginal, setSelectedNoteOriginal] = useState<Note | undefined>();
   const [newNote, setNewNote] = useState<Note>({
     content: '',
     isArchived: false,
@@ -32,6 +33,7 @@ export default function Notes() {
 
   function handleCreateNoteClick() {
     setSelectedNote(undefined);
+    setSelectedNoteOriginal(undefined);
     if (!modifyMode) {
       toggleModifyMode(true);
     }
@@ -39,18 +41,45 @@ export default function Notes() {
 
   function handleEditNoteClick(note: Note) {
     setSelectedNote(note);
+    setSelectedNoteOriginal(note);
+    setNewNote({
+      content: '',
+      isArchived: false,
+      lastEdited: '',
+      lastEditedDate: '',
+      tags: [],
+      tagString: '',
+      title: '',
+    });
     if (!modifyMode) {
       toggleModifyMode(true);
     }
   }
 
-  function handleSubmit() {
-    saveNote(newNote);
+  function handleSubmit(e: BaseSyntheticEvent) {
+    e.preventDefault();
+    if (selectedNote && selectedNoteOriginal) {
+      editNote(selectedNote, selectedNoteOriginal);
+    } else {
+      createNote(newNote);
+    }
+    toggleModifyMode(false);
+    setData(fetchData());
+  }
+
+  function handleDelete() {
+    deleteNote(selectedNoteOriginal);
+    toggleModifyMode(false);
+    setData(fetchData());
   }
 
   function handleChange(e: BaseSyntheticEvent) {
     const changedFieldName = e.target.name;
-    setNewNote({ ...newNote, [changedFieldName]: e.target.value });
+    if (selectedNote && selectedNoteOriginal) {
+      setSelectedNote({ ...selectedNote, [changedFieldName]: e.target.value });
+    } else {
+      setNewNote({ ...newNote, [changedFieldName]: e.target.value });
+    }
   }
 
   useEffect(() => {
@@ -96,6 +125,13 @@ export default function Notes() {
             >
               + create new note
             </button>
+            {modifyMode && !selectedNote && (
+              <button className={`${styles.notes__note} ${styles['notes__note--active']}`}>
+                <span className={`${styles['notes__note-title']}`}>
+                  {newNote.title ? newNote.title : 'Untitled Note'}
+                </span>
+              </button>
+            )}
             {data ? (
               <>
                 {data.notes.map((note: Note, index: number) => {
@@ -226,7 +262,7 @@ export default function Notes() {
                         <ArchivedIcon color='black' width='20' height='20' />
                         archive note
                       </button>
-                      <button className={styles.notes__action}>
+                      <button className={styles.notes__action} onClick={handleDelete}>
                         <DeleteIcon width='20' height='20' />
                         delete note
                       </button>
