@@ -82,6 +82,25 @@ export default function Notes() {
     }
   }
 
+  function handleCancel() {
+    toggleModifyMode(false);
+
+    if (selectedNote && selectedNoteOriginal) {
+      setSelectedNote(undefined);
+      setSelectedNoteOriginal(undefined);
+    } else {
+      setNewNote({
+        content: '',
+        isArchived: false,
+        lastEdited: '',
+        lastEditedDate: '',
+        tags: [],
+        tagString: '',
+        title: '',
+      });
+    }
+  }
+
   useEffect(() => {
     setData(fetchData());
   }, []);
@@ -147,9 +166,11 @@ export default function Notes() {
                       <div className={`${styles['notes__note-tags']}`}>
                         {note.tags.map((tag, index) => {
                           return (
-                            <span className={`${styles['notes__note-tag']}`} key={index}>
-                              {tag}
-                            </span>
+                            <>
+                              <span className={`${styles['notes__note-tag']}`} key={index}>
+                                {tag}
+                              </span>
+                            </>
                           );
                         })}
                       </div>
@@ -176,19 +197,24 @@ export default function Notes() {
                   {!isDesktop && (
                     <div className={styles['notes__actions-bar']}>
                       <button
+                        type='button'
                         className={`${styles['notes__mobile-form-button']} ${styles['notes__mobile-form-button--gray']}`}
+                        onClick={handleCancel}
                       >
                         <ArrowLeftIcon color='#525866' width='18' height='18' />
                         go back
                       </button>
                       <div className={styles['notes__actions-container']}>
                         <button
+                          type='button'
                           className={`${styles['notes__mobile-form-button']} ${styles['notes__mobile-form-button--gray']}`}
+                          onClick={handleCancel}
                         >
                           cancel
                         </button>
                         <button
                           className={`${styles['notes__mobile-form-button']} ${styles['notes__mobile-form-button--blue']}`}
+                          type='submit'
                         >
                           save note
                         </button>
@@ -250,6 +276,8 @@ export default function Notes() {
                     </button>
                     <button
                       className={`${styles['notes__button']} ${styles['notes__button--cancel']}`}
+                      type='button'
+                      onClick={handleCancel}
                     >
                       cancel
                     </button>
