@@ -1,7 +1,6 @@
 'use client';
 import styles from './page.module.scss';
 import PlusIcon from '../ui/icons/PlusIcon';
-import { BaseSyntheticEvent, useEffect, useState } from 'react';
 import Button from '../ui/Button/Button';
 import SettingsIcon from '../ui/icons/SettingsIcon';
 import Input from '@mui/joy/Input';
@@ -10,113 +9,22 @@ import TagIcon from '../ui/icons/TagIcon';
 import ClockIcon from '../ui/icons/ClockIcon';
 import ArchivedIcon from '../ui/icons/ArchivedIcon';
 import DeleteIcon from '../ui/icons/DeleteIcon';
-import { fetchData } from '../lib/data';
-import type { Note, Notes } from '../lib/definitions';
+import type { Note, NoteData } from '../lib/definitions';
 import ArrowLeftIcon from '../ui/icons/ArrowLeftIcon';
-import { createNote, deleteNote, editNote } from '../lib/actions';
 
-export default function Notes() {
-  const [data, setData] = useState<Notes>({ notes: [] });
-  const [modifyMode, toggleModifyMode] = useState(false);
-  const [selectedNote, setSelectedNote] = useState<Note | undefined>();
-  const [selectedNoteOriginal, setSelectedNoteOriginal] = useState<Note | undefined>();
-  const [newNote, setNewNote] = useState<Note>({
-    content: '',
-    isArchived: false,
-    lastEdited: '',
-    lastEditedDate: '',
-    tags: [],
-    tagString: '',
-    title: '',
-  });
-  const [isDesktop, toggleIsDesktop] = useState(false);
-
-  function handleCreateNoteClick() {
-    setSelectedNote(undefined);
-    setSelectedNoteOriginal(undefined);
-    if (!modifyMode) {
-      toggleModifyMode(true);
-    }
-  }
-
-  function handleEditNoteClick(note: Note) {
-    setSelectedNote(note);
-    setSelectedNoteOriginal(note);
-    setNewNote({
-      content: '',
-      isArchived: false,
-      lastEdited: '',
-      lastEditedDate: '',
-      tags: [],
-      tagString: '',
-      title: '',
-    });
-    if (!modifyMode) {
-      toggleModifyMode(true);
-    }
-  }
-
-  function handleSubmit(e: BaseSyntheticEvent) {
-    e.preventDefault();
-    if (selectedNote && selectedNoteOriginal) {
-      editNote(selectedNote, selectedNoteOriginal);
-    } else {
-      createNote(newNote);
-    }
-    toggleModifyMode(false);
-    setData(fetchData());
-  }
-
-  function handleDelete() {
-    deleteNote(selectedNoteOriginal);
-    toggleModifyMode(false);
-    setData(fetchData());
-  }
-
-  function handleChange(e: BaseSyntheticEvent) {
-    const changedFieldName = e.target.name;
-    if (selectedNote && selectedNoteOriginal) {
-      setSelectedNote({ ...selectedNote, [changedFieldName]: e.target.value });
-    } else {
-      setNewNote({ ...newNote, [changedFieldName]: e.target.value });
-    }
-  }
-
-  function handleCancel() {
-    toggleModifyMode(false);
-
-    if (selectedNote && selectedNoteOriginal) {
-      setSelectedNote(undefined);
-      setSelectedNoteOriginal(undefined);
-    } else {
-      setNewNote({
-        content: '',
-        isArchived: false,
-        lastEdited: '',
-        lastEditedDate: '',
-        tags: [],
-        tagString: '',
-        title: '',
-      });
-    }
-  }
-
-  useEffect(() => {
-    setData(fetchData());
-  }, []);
-
-  useEffect(() => {
-    toggleIsDesktop(window.innerWidth >= 1440);
-  }, []);
-
-  useEffect(() => {
-    function handleResize() {
-      toggleIsDesktop(window.innerWidth >= 1440);
-    }
-
-    window.addEventListener('resize', handleResize);
-  }, []);
-
+export default function RegularNotes({
+  data,
+  modifyMode,
+  selectedNote,
+  newNote,
+  isDesktop,
+  handleCreateNoteClick,
+  handleEditNoteClick,
+  handleSubmit,
+  handleCancel,
+  handleChange,
+  handleDelete,
+} : NoteData) {
   return (
     <div className={styles.notes}>
       {!(modifyMode && !isDesktop) && (
