@@ -9,22 +9,39 @@ import TagIcon from '../ui/icons/TagIcon';
 import ClockIcon from '../ui/icons/ClockIcon';
 import ArchivedIcon from '../ui/icons/ArchivedIcon';
 import DeleteIcon from '../ui/icons/DeleteIcon';
-import type { Note, NoteData } from '../lib/definitions';
+import type { Note, Notes } from '../lib/definitions';
 import ArrowLeftIcon from '../ui/icons/ArrowLeftIcon';
+import { BaseSyntheticEvent } from 'react';
 
-export default function RegularNotes({
-  data,
-  modifyMode,
-  selectedNote,
-  newNote,
-  isDesktop,
-  handleCreateNoteClick,
-  handleEditNoteClick,
-  handleSubmit,
-  handleCancel,
-  handleChange,
-  handleDelete,
-} : NoteData) {
+type Props = {
+  data: Notes;
+  modifyMode: boolean;
+  selectedNote: Note | undefined;
+  newNote: Note;
+  isDesktop: boolean;
+  handleCreateNoteClick: () => void;
+  handleEditNoteClick: (note: Note) => void;
+  handleSubmit: (e: BaseSyntheticEvent) => void;
+  handleCancel: () => void;
+  handleChange: (e: BaseSyntheticEvent) => void;
+  handleDelete: () => void;
+};
+
+export default function RegularNotes(props: Props) {
+  const {
+    data,
+    modifyMode,
+    selectedNote,
+    newNote,
+    isDesktop,
+    handleCreateNoteClick,
+    handleEditNoteClick,
+    handleSubmit,
+    handleCancel,
+    handleChange,
+    handleDelete,
+  } = props;
+
   return (
     <div className={styles.notes}>
       {!(modifyMode && !isDesktop) && (
