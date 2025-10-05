@@ -5,7 +5,7 @@ import Header from '../ui/Header/Header';
 import Sidebar from '../ui/Sidebar/Sidebar';
 import styles from './layout.module.scss';
 import type { Note, Notes } from '../lib/definitions';
-import RegularNotes from './page';
+import RegularNotes from './RegularNotes';
 import { fetchData } from '../lib/data';
 import { createNote, deleteNote, editNote } from '../lib/actions';
 
@@ -25,7 +25,7 @@ export default function Layout() {
   });
   const [isDesktop, toggleIsDesktop] = useState(false);
 
-    function handleCreateNoteClick() {
+  function handleCreateNoteClick() {
     setSelectedNote(undefined);
     setSelectedNoteOriginal(undefined);
     if (!modifyMode) {
