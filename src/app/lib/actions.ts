@@ -9,8 +9,11 @@ function updateDate(note: Note) {
 
 function updateTags(note: Note) {
   if (note.tagString) {
-    const tags = note.tagString.split(',');
-    note.tags = tags.map((tag: string) => tag.trim());
+    let tags = note.tagString.split(',');
+    tags = tags.map(
+      (tag: string) => tag.trim().charAt(0).toUpperCase() + tag.trim().slice(1).toLowerCase(),
+    );
+    note.tags = [...note.tags, ...tags.filter((tag: string) => !note.tags.includes(tag))];
   }
 }
 

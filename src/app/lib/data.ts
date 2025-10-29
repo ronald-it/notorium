@@ -28,5 +28,5 @@ export function fetchTags() {
     });
   });
 
-  return tags;
+  return Array.from(tags).sort();
 }

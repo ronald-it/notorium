@@ -1,15 +1,32 @@
-'use client';
-import { BaseSyntheticEvent, useEffect, useState } from 'react';
-import Footer from '../ui/Footer/Footer';
-import Header from '../ui/Header/Header';
-import Sidebar from '../ui/Sidebar/Sidebar';
-import styles from './layout.module.scss';
-import type { Note, Notes } from '../lib/definitions';
-import RegularNotes from './RegularNotes';
-import { fetchData } from '../lib/data';
-import { createNote, deleteNote, editNote } from '../lib/actions';
+import { createNote, deleteNote, editNote } from '@/app/lib/actions';
+import { fetchData, fetchTags } from '@/app/lib/data';
+import { Note, Notes } from '@/app/lib/definitions';
+import { usePathname } from 'next/navigation';
+import { BaseSyntheticEvent, createContext, useEffect, useState } from 'react';
 
-export default function Layout() {
+export const NotesContext = createContext<ContextData | null>(null);
+
+type ContextData = {
+  data: Notes;
+  isDesktop: boolean;
+  handleCreateNoteClick: () => void;
+  handleEditNoteClick: (note: Note) => void;
+  handleSubmit: (e: BaseSyntheticEvent) => void;
+  handleDelete: () => void;
+  handleChange: (e: BaseSyntheticEvent) => void;
+  handleCancel: () => void;
+  modifyMode: boolean;
+  selectedNote: Note | undefined;
+  newNote: Note;
+  pathname: string;
+  tags: string[] | undefined;
+};
+
+export function DataProvider({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   const [data, setData] = useState<Notes>({ notes: [] });
   const [modifyMode, toggleModifyMode] = useState(false);
   const [selectedNote, setSelectedNote] = useState<Note | undefined>();
@@ -24,6 +41,8 @@ export default function Layout() {
     title: '',
   });
   const [isDesktop, toggleIsDesktop] = useState(false);
+  const pathname = usePathname();
+  const [tags, setTags] = useState<string[] | undefined>();
 
   function handleCreateNoteClick() {
     setSelectedNote(undefined);
@@ -111,26 +130,28 @@ export default function Layout() {
     window.addEventListener('resize', handleResize);
   }, []);
 
-  return (
-    <div className={styles.layout}>
-      <Header />
-      <main className={styles.main}>
-        <RegularNotes
-          data={data}
-          modifyMode={modifyMode}
-          selectedNote={selectedNote}
-          newNote={newNote}
-          isDesktop={isDesktop}
-          handleCreateNoteClick={handleCreateNoteClick}
-          handleEditNoteClick={handleEditNoteClick}
-          handleSubmit={handleSubmit}
-          handleCancel={handleCancel}
-          handleChange={handleChange}
-          handleDelete={handleDelete}
-        />
-      </main>
-      <Sidebar />
-      <Footer />
-    </div>
-  );
+  useEffect(() => {
+    const tagsArray = Array.from(fetchTags());
+    setTags(tagsArray);
+  }, [data]);
+
+  const noteData: ContextData = {
+    data: data,
+    isDesktop: isDesktop,
+    handleCreateNoteClick: handleCreateNoteClick,
+    handleEditNoteClick: handleEditNoteClick,
+    handleSubmit: handleSubmit,
+    handleDelete: handleDelete,
+    handleChange: handleChange,
+    handleCancel: handleCancel,
+    modifyMode: modifyMode,
+    selectedNote: selectedNote,
+    newNote: newNote,
+    pathname: pathname,
+    tags: tags,
+  };
+
+  return <NotesContext.Provider value={noteData}>{children}</NotesContext.Provider>;
 }
+
+export default DataProvider;
