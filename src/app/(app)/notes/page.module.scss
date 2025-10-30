@@ -1,0 +1,423 @@
+@use '../../../styles/variables.scss' as *;
+@use 'sass:map';
+
+.notes {
+  grid-area: auto / 2 / auto / end;
+  height: 100%;
+  overflow-y: hidden;
+
+  &__inner-container {
+    padding: $spacing-0 $spacing-200;
+    color: $neutral-950;
+    position: relative;
+    height: calc(100% - 52px - 56.8px);
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    @include for-tablet {
+      padding: $spacing-0 $spacing-400;
+      height: calc(100% - 60px - 87.41px);
+    }
+
+    @include for-desktop {
+      padding: 0;
+      height: 100%;
+    }
+  }
+
+  &__title-bar {
+    @include for-desktop {
+      padding: 0 $spacing-400;
+      border-bottom: solid 1px $neutral-200;
+      display: flex;
+      justify-content: space-between;
+      height: 70px;
+    }
+  }
+
+  &__title {
+    text-transform: capitalize;
+    font-family: 'Inter', sans-serif;
+    font-size: map.get($preset-1, 'font-size');
+    line-height: map.get($preset-1, 'line-height');
+    letter-spacing: map.get($preset-1, 'letter-spacing');
+    grid-column: auto / span 2;
+  }
+
+  &__toolbar {
+    display: none;
+
+    @include for-desktop {
+      display: flex;
+      align-items: center;
+      gap: $spacing-200;
+    }
+  }
+
+  &__searchbar {
+    height: 42px;
+    width: 300px;
+  }
+
+  &__section {
+    height: 100%;
+
+    @include for-desktop {
+      display: flex;
+      height: calc(100% - 70px);
+    }
+  }
+
+  &__edit {
+    display: none;
+
+    &--active {
+      display: flex;
+      flex: 1;
+      height: 100%;
+    }
+
+    @include for-desktop {
+      display: flex;
+      flex: 1;
+    }
+  }
+
+  &__form {
+    flex: 1;
+    display: flex;
+    height: 100%;
+  }
+
+  &__create-fields {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+    gap: $spacing-150;
+    padding: $spacing-250 0;
+
+    @include for-desktop {
+      gap: $spacing-200;
+      padding: $spacing-250 $spacing-300;
+    }
+  }
+
+  &__actions-bar {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    border-bottom: solid 1px $neutral-200;
+    padding-bottom: $spacing-150;
+  }
+
+  &__actions-container {
+    display: flex;
+    gap: $spacing-200;
+  }
+
+  &__mobile-form-button {
+    display: flex;
+    align-items: center;
+    font-size: map.get($preset-5, 'font-size');
+    line-height: map.get($preset-5, 'line-height');
+    letter-spacing: map.get($preset-5, 'letter-spacing');
+    text-transform: capitalize;
+    gap: $spacing-050;
+    cursor: pointer;
+
+    &--gray {
+      color: $neutral-600;
+    }
+
+    &--blue {
+      color: $blue-500;
+    }
+  }
+
+  &__form-title {
+    font-size: map.get($preset-2, 'font-size');
+    line-height: map.get($preset-2, 'line-height');
+    letter-spacing: map.get($preset-2, 'letter-spacing');
+    color: $neutral-950;
+    font-weight: 700;
+    width: 100%;
+
+    @include for-tablet {
+      font-size: map.get($preset-1, 'font-size');
+      line-height: map.get($preset-1, 'line-height');
+      letter-spacing: map.get($preset-1, 'letter-spacing');
+    }
+
+    &::placeholder {
+      color: $neutral-950;
+      font-weight: 700;
+    }
+  }
+
+  &__form-field-container {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-100;
+  }
+
+  &__form-field-group {
+    display: flex;
+    font-size: map.get($preset-6, 'font-size');
+    line-height: map.get($preset-6, 'line-height');
+    letter-spacing: map.get($preset-6, 'letter-spacing');
+
+    @include for-tablet {
+      font-size: map.get($preset-5, 'font-size');
+      line-height: map.get($preset-5, 'line-height');
+      letter-spacing: map.get($preset-5, 'letter-spacing');
+    }
+  }
+
+  &__form-label {
+    display: flex;
+    align-items: center;
+    width: 115px;
+    color: $neutral-700;
+    gap: $spacing-075;
+  }
+
+  &__form-input {
+    flex: 1;
+    color: $neutral-950;
+    resize: none;
+
+    &::placeholder {
+      color: $neutral-400;
+    }
+  }
+
+  &__divider {
+    display: block;
+    border-bottom: solid 1px $neutral-200;
+  }
+
+  &__button {
+    display: none;
+
+    @include for-desktop {
+      display: block;
+      padding: $spacing-150 $spacing-200;
+      border-radius: $radius-8;
+      text-transform: capitalize;
+      font-size: map.get($preset-4, 'font-size');
+      line-height: map.get($preset-4, 'line-height');
+      letter-spacing: map.get($preset-4, 'letter-spacing');
+      cursor: pointer;
+    }
+
+    &--save {
+      background-color: $blue-500;
+      color: $neutral-0;
+    }
+
+    &--cancel {
+      background-color: $neutral-100;
+      color: $neutral-600;
+    }
+  }
+
+  &__form-description-label {
+    height: 100%;
+    width: 100%;
+  }
+
+  &__form-description {
+    width: 100%;
+    height: 100%;
+    color: $neutral-800;
+    font-size: map.get($preset-6, 'font-size');
+    line-height: map.get($preset-6, 'line-height');
+    letter-spacing: map.get($preset-6, 'letter-spacing');
+    resize: none;
+
+    &::placeholder {
+      color: $neutral-700;
+    }
+
+    @include for-tablet {
+      font-size: map.get($preset-5, 'font-size');
+      line-height: map.get($preset-5, 'line-height');
+      letter-spacing: map.get($preset-5, 'letter-spacing');
+    }
+  }
+
+  &__actions {
+    display: none;
+
+    @include for-desktop {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-150;
+      width: 258px;
+      border-left: solid 1px $neutral-200;
+      padding: $spacing-250 $spacing-200;
+    }
+  }
+
+  &__action {
+    color: $neutral-950;
+    text-transform: capitalize;
+    padding: $spacing-150 $spacing-200;
+    font-size: map.get($preset-4, 'font-size');
+    line-height: map.get($preset-4, 'line-height');
+    letter-spacing: map.get($preset-4, 'letter-spacing');
+    font-weight: 500;
+    border-radius: $radius-8;
+    border: solid 1px $neutral-300;
+    display: flex;
+    gap: $spacing-100;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  &__list {
+    width: 100%;
+    overflow-x: hidden;
+
+    @include for-desktop {
+      width: 290px;
+      padding: $spacing-250 $spacing-200 $spacing-250 $spacing-400;
+      border-right: solid 1px $neutral-200;
+      gap: $spacing-200;
+      display: flex;
+      flex-direction: column;
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+  }
+
+  &__button-desktop {
+    display: none;
+
+    @include for-desktop {
+      display: block;
+      background-color: $blue-500;
+      color: $neutral-0;
+      text-transform: capitalize;
+      padding: $spacing-200 $spacing-0;
+      border-radius: $radius-8;
+      font-size: map.get($preset-4, 'font-size');
+      line-height: map.get($preset-4, 'line-height');
+      letter-spacing: map.get($preset-4, 'letter-spacing');
+      cursor: pointer;
+    }
+  }
+
+  &__note {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: $spacing-100;
+    gap: $spacing-150;
+    border-bottom: solid 1px $neutral-200;
+    width: 100%;
+    cursor: pointer;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &--active {
+      @include for-desktop {
+        background-color: $neutral-100;
+        border: none;
+        border-radius: $radius-6;
+      }
+    }
+  }
+
+  &__note-title {
+    font-family: 'Inter', sans-serif;
+    font-size: map.get($preset-3, 'font-size');
+    line-height: map.get($preset-3, 'line-height');
+    letter-spacing: map.get($preset-3, 'letter-spacing');
+    font-weight: 600;
+    text-align: start;
+  }
+
+  &__note-tags {
+    display: flex;
+    gap: $spacing-050;
+    width: 99%;
+  }
+
+  &__note-tag {
+    background-color: $neutral-200;
+    font-size: map.get($preset-6, 'font-size');
+    line-height: map.get($preset-6, 'line-height');
+    letter-spacing: map.get($preset-6, 'letter-spacing');
+    padding: $spacing-025 $spacing-075;
+    border-radius: $radius-4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &--remainder {
+      text-overflow: clip;
+      width: fit-content;
+      min-width: $spacing-500;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &__note-date {
+    color: $neutral-700;
+    font-size: map.get($preset-6, 'font-size');
+    line-height: map.get($preset-6, 'line-height');
+    letter-spacing: map.get($preset-6, 'letter-spacing');
+  }
+
+  &__notification {
+    background-color: $neutral-100;
+    border: solid 1px $neutral-200;
+    font-family: 'Inter', sans-serif;
+    font-size: map.get($preset-5, 'font-size');
+    line-height: map.get($preset-5, 'line-height');
+    letter-spacing: map.get($preset-5, 'letter-spacing');
+    padding: $spacing-100;
+    border-radius: $radius-8;
+  }
+
+  &__button-mobile-and-tablet {
+    position: fixed;
+    bottom: 57px;
+    right: 0;
+    border-radius: $radius-full;
+    background-color: $blue-500;
+    height: $spacing-600;
+    width: $spacing-600;
+    margin: $spacing-200;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 7px 11px rgba(202, 207, 216, 0.7);
+    cursor: pointer;
+
+    @include for-tablet {
+      bottom: 87.4062px;
+      margin: $spacing-400;
+    }
+
+    @include for-desktop {
+      display: none;
+    }
+  }
+
+  &__icon {
+    height: 32px;
+    width: 32px;
+  }
+
+  &__buttons-container {
+    display: flex;
+    gap: $spacing-200;
+  }
+}

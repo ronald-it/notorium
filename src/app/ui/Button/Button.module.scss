@@ -1,0 +1,45 @@
+@use '../../../styles/variables.scss' as *;
+@use 'sass:map';
+
+.nav-link {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  border-radius: $radius-4;
+  padding: $spacing-050 $spacing-0;
+
+  @include for-tablet {
+    flex: none;
+    width: $spacing-1000;
+  }
+
+  @include for-desktop {
+    padding: 0;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+  }
+
+  &--active {
+    background-color: $blue-50;
+  }
+
+  &__description {
+    display: none;
+
+    @include for-tablet {
+      display: block;
+      text-align: center;
+      font-size: map.get($preset-6, 'font-size');
+      line-height: map.get($preset-6, 'line-height');
+      letter-spacing: map.get($preset-6, 'letter-spacing');
+      color: $neutral-600;
+      text-transform: capitalize;
+
+      &--active {
+        color: $blue-500;
+      }
+    }
+  }
+}

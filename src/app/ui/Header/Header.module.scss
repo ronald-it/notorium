@@ -1,0 +1,18 @@
+@use '../../../styles/variables.scss' as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  background-color: $neutral-100;
+  padding: $spacing-150 $spacing-200;
+
+  @include for-tablet {
+    padding: $spacing-200 $spacing-400;
+  }
+
+  @include for-desktop {
+    display: none;
+  }
+}

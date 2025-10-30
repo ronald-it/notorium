@@ -1,0 +1,19 @@
+@use '../../styles/variables.scss' as *;
+
+.layout {
+  height: 100vh;
+  overflow: hidden;
+
+  @include for-desktop {
+    display: grid;
+    grid-template: $grid-desktop;
+    width: 100%;
+    overflow-y: hidden;
+  }
+
+  .main {
+    grid-area: auto / 2 / auto / end;
+    height: 100%;
+    overflow-y: hidden;
+  }
+}

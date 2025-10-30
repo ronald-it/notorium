@@ -1,0 +1,22 @@
+@use '../../../styles/variables.scss' as *;
+
+.footer {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  background-color: $neutral-0;
+  display: flex;
+  // justify-content: space-between;
+  justify-content: center;
+  padding: $spacing-150 $spacing-200;
+  border-top: solid 1px $neutral-200;
+  box-shadow: $shadow-small;
+
+  @include for-tablet {
+    padding: $spacing-250 $spacing-400;
+  }
+
+    @include for-desktop {
+      display: none;
+  }
+}
