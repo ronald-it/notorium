@@ -13,7 +13,7 @@ function updateTags(note: Note) {
     tags = tags.map(
       (tag: string) => tag.trim().charAt(0).toUpperCase() + tag.trim().slice(1).toLowerCase(),
     );
-    note.tags = [...note.tags, ...tags.filter((tag: string) => !note.tags.includes(tag))];
+    note.tags = tags;
   }
 }
 

@@ -2,17 +2,18 @@
 import { useContext } from 'react';
 import styles from './page.module.scss';
 import type { Note, Notes } from '../../lib/definitions';
-import Button from '../../ui/Button/Button';
-import { Input } from '@mui/joy';
-import SearchIcon from '../../ui/icons/SearchIcon';
-import SettingsIcon from '../../ui/icons/SettingsIcon';
+// import Button from '../../ui/Button/Button';
+// import { Input } from '@mui/joy';
+// import SearchIcon from '../../ui/icons/SearchIcon';
+// import SettingsIcon from '../../ui/icons/SettingsIcon';
 import ArrowLeftIcon from '../../ui/icons/ArrowLeftIcon';
 import TagIcon from '../../ui/icons/TagIcon';
 import ClockIcon from '../../ui/icons/ClockIcon';
-import ArchivedIcon from '../../ui/icons/ArchivedIcon';
+// import ArchivedIcon from '../../ui/icons/ArchivedIcon';
 import DeleteIcon from '../../ui/icons/DeleteIcon';
 import PlusIcon from '../../ui/icons/PlusIcon';
 import { NotesContext } from '../context/DataProvider';
+// import ArchivedIcon from '@/app/ui/icons/ArchivedIcon';
 
 export default function Notes() {
   const {
@@ -35,7 +36,7 @@ export default function Notes() {
         {!(modifyMode && !isDesktop) && (
           <div className={`${styles['notes__title-bar']}`}>
             <h2 className={styles.notes__title}>all notes</h2>
-            <div className={styles.notes__toolbar}>
+            {/* <div className={styles.notes__toolbar}>
               <Input
                 className={styles.notes__searchbar}
                 placeholder='Search by title, content, or tags...'
@@ -45,7 +46,7 @@ export default function Notes() {
               <Button url='/settings'>
                 <SettingsIcon color='#525866' />
               </Button>
-            </div>
+            </div> */}
           </div>
         )}
         <div className={styles.notes__section}>
@@ -78,11 +79,22 @@ export default function Notes() {
                         <span className={`${styles['notes__note-title']}`}>{note.title}</span>
                         <div className={`${styles['notes__note-tags']}`}>
                           {note.tags.map((tag, index) => {
-                            return (
-                              <span className={`${styles['notes__note-tag']}`} key={index}>
-                                {tag}
-                              </span>
-                            );
+                            if (index < 3) {
+                              return (
+                                <span className={`${styles['notes__note-tag']}`} key={index}>
+                                  {tag}
+                                </span>
+                              );
+                            } else if (index === note.tags.length - 1) {
+                              return (
+                                <span
+                                  className={`${styles['notes__note-tag']} ${styles['notes__note-tag--remainder']}`}
+                                  key={index}
+                                >
+                                  +{note.tags.length - 3}
+                                </span>
+                              );
+                            }
                           })}
                         </div>
                         <span className={`${styles['notes__note-date']}`}>
@@ -118,6 +130,20 @@ export default function Notes() {
                           go back
                         </button>
                         <div className={styles['notes__actions-container']}>
+                          {selectedNote && (
+                            <>
+                              <button
+                                type='button'
+                                className={`${styles['notes__mobile-form-button']}`}
+                                onClick={handleDelete}
+                              >
+                                <DeleteIcon width='18' height='18' color='#525866' />
+                              </button>
+                              {/* <button type='button'>
+                                <ArchivedIcon width='18' height='18' color='#525866' />
+                              </button> */}
+                            </>
+                          )}
                           <button
                             type='button'
                             className={`${styles['notes__mobile-form-button']} ${styles['notes__mobile-form-button--gray']}`}
@@ -134,34 +160,40 @@ export default function Notes() {
                         </div>
                       </div>
                     )}
-                    <input
-                      type='text'
-                      name='title'
-                      value={selectedNote ? selectedNote.title : newNote.title}
-                      onChange={handleChange}
-                      placeholder='Enter a title...'
-                      className={styles['notes__form-title']}
-                    />
+                    <label htmlFor='title' className={styles['notes__form-title']}>
+                      <input
+                        type='text'
+                        id='title'
+                        name='title'
+                        value={selectedNote ? selectedNote.title : newNote.title}
+                        onChange={handleChange}
+                        placeholder='Enter a title...'
+                        className={styles['notes__form-title']}
+                      />
+                    </label>
                     <div className={styles['notes__form-field-container']}>
                       <div className={styles['notes__form-field-group']}>
-                        <label className={styles['notes__form-label']}>
+                        <label htmlFor='tagString' className={styles['notes__form-label']}>
                           <TagIcon color='#2B303B' width='16' height='16' />
                           Tags
                         </label>
                         <textarea
+                          id='tagString'
                           name='tagString'
                           placeholder='Add tags separated by commas (e.g. Work, Planning)'
                           value={selectedNote ? selectedNote.tagString : newNote.tagString}
                           onChange={handleChange}
                           className={styles['notes__form-input']}
+                          rows={1}
                         />
                       </div>
                       <div className={styles['notes__form-field-group']}>
-                        <label className={styles['notes__form-label']}>
+                        <label htmlFor='lastEdited' className={styles['notes__form-label']}>
                           <ClockIcon color='#2B303B' width='16' height='16' />
                           Last edited
                         </label>
                         <input
+                          id='lastEdited'
                           type='text'
                           name='lastEdited'
                           value={
@@ -174,13 +206,16 @@ export default function Notes() {
                       </div>
                     </div>
                     <span className={styles.notes__divider}></span>
-                    <textarea
-                      name='content'
-                      value={selectedNote ? selectedNote.content : newNote.content}
-                      onChange={handleChange}
-                      placeholder='Start typing your note here...'
-                      className={styles['notes__form-description']}
-                    />
+                    <label htmlFor='content' className={styles['notes__form-description-label']}>
+                      <textarea
+                        id='content'
+                        name='content'
+                        value={selectedNote ? selectedNote.content : newNote.content}
+                        onChange={handleChange}
+                        placeholder='Start typing your note here...'
+                        className={styles['notes__form-description']}
+                      />
+                    </label>
                     {isDesktop && <span className={styles.notes__divider}></span>}
                     <div className={styles['notes__buttons-container']}>
                       <button
@@ -201,10 +236,10 @@ export default function Notes() {
                   <div className={styles.notes__actions}>
                     {selectedNote && (
                       <>
-                        <button className={styles.notes__action}>
+                        {/* <button className={styles.notes__action}>
                           <ArchivedIcon color='black' width='20' height='20' />
                           archive note
-                        </button>
+                        </button> */}
                         <button className={styles.notes__action} onClick={handleDelete}>
                           <DeleteIcon width='20' height='20' />
                           delete note

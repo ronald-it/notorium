@@ -1,9 +1,10 @@
 type ComponentProps = {
   width: string;
   height: string;
+  color?: string;
 };
 
-export default function DeleteIcon({ width = '24', height = '25' }: ComponentProps) {
+export default function DeleteIcon({ width = '24', height = '25', color }: ComponentProps) {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -13,7 +14,7 @@ export default function DeleteIcon({ width = '24', height = '25' }: ComponentPro
       viewBox='0 0 24 25'
     >
       <path
-        stroke='#0E121B'
+        stroke={color ? color : '#0E121B'}
         strokeLinecap='round'
         strokeLinejoin='round'
         strokeWidth='1.5'

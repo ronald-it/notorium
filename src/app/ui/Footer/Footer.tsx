@@ -2,10 +2,10 @@
 import styles from './Footer.module.scss';
 import Button from '../Button/Button';
 import HomeIcon from '../icons/HomeIcon';
-import SearchIcon from '../icons/SearchIcon';
-import ArchivedIcon from '../icons/ArchivedIcon';
-import TagIcon from '../icons/TagIcon';
-import SettingsIcon from '../icons/SettingsIcon';
+// import SearchIcon from '../icons/SearchIcon';
+// import ArchivedIcon from '../icons/ArchivedIcon';
+// import TagIcon from '../icons/TagIcon';
+// import SettingsIcon from '../icons/SettingsIcon';
 import { usePathname } from 'next/navigation';
 
 export default function Footer() {
@@ -15,7 +15,7 @@ export default function Footer() {
       <Button description='home' url='/notes'>
         <HomeIcon color={pathname === '/notes' ? '#335CFF' : '#525866'} />
       </Button>
-      <Button description='search' url='/search'>
+      {/* <Button description='search' url='/search'>
         <SearchIcon color={pathname === '/search' ? '#335CFF' : '#525866'} />
       </Button>
       <Button description='archived' url='/archive'>
@@ -26,7 +26,7 @@ export default function Footer() {
       </Button>
       <Button description='settings' url='/settings'>
         <SettingsIcon color={pathname === '/settings' ? '#335CFF' : '#525866'} />
-      </Button>
+      </Button> */}
     </footer>
   );
 }
