@@ -1,11 +1,10 @@
 import Image from 'next/image';
 import styles from './Header.module.scss';
-import feather from '/public/images/logo.svg';
 
 export default function Header() {
   return (
     <header className={styles.header}>
-      <Image src={feather} alt='Header logo' />
+      <Image src='/images/logo.svg' alt='Header logo' width={100} height={100} />
     </header>
   );
 }

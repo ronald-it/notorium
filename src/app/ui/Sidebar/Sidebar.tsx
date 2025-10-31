@@ -1,7 +1,6 @@
 'use client';
 import styles from './Sidebar.module.scss';
 import Image from 'next/image';
-import feather from '/public/images/logo.svg';
 import HomeIcon from '../icons/HomeIcon';
 // import ArchivedIcon from '../icons/ArchivedIcon';
 import TagIcon from '../icons/TagIcon';
@@ -14,7 +13,7 @@ export default function Sidebar() {
 
   return (
     <nav className={styles.sidebar}>
-      <Image src={feather} alt='Sidebar logo' />
+      <Image src='/images/logo.svg' alt='Sidebar logo' width={100} height={100} />
       <Link href='/notes' className={styles['sidebar__top-items']}>
         <div
           className={`${styles.sidebar__item} ${
