@@ -1,3 +1,4 @@
+'use client';
 import { createNote, deleteNote, editNote } from '@/app/lib/actions';
 import { fetchData, fetchTags } from '@/app/lib/data';
 import { Note, Notes } from '@/app/lib/definitions';
